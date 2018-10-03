@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+<!-- 2018-10-03 Ср 14:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Начало работы с паттернами</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Bjornmossa" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../assets/style.css" />
+<meta charset="utf-8">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Начало работы с паттернами</h1>
+<div id="table-of-contents">
+<h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org00c678c">1. Пара слов о переменных.</a></li>
+<li><a href="#org0b948b0">2. Паттерны, потоки, события.</a>
+<ul>
+<li><a href="#orgd95339c">2.1. Потоки (Streams)</a></li>
+<li><a href="#org88b1477">2.2. События (Events)</a></li>
+<li><a href="#org7994dbd">2.3. Паттерны</a></li>
+</ul>
+</li>
+<li><a href="#orgacbf216">3. Pseq</a></li>
+<li><a href="#org8ed77cf">4. Библиотека ChordSymbol, ноты и аккорды</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org00c678c" class="outline-2">
+<h2 id="org00c678c"><span class="section-number-2">1</span> Пара слов о переменных.</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Язык SuperCollider взял многое от функциональных языков, в том числе
+очень строгое отношение к области видимости переменных. В большинстве
+случаев мы будем избегать работы с переменными, но столкнуться с ними
+прийдётся. Итак, переменная это поименованная область памяти
+компьютера, в которую мы записали некоторое значение.<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> Можно
+представить это как ячейку в камере хранения. Мы знаем название этой
+ячейки, можем что-то в неё положить или забрать. Чтобы положить
+что-либо в нашу ячейку обычно используется оператор присваивания, обычно
+это знак равенства <b>=</b>. Мы можем хранить в этой ячейке только что-то
+одно, поэтому когда мы кладем новую вещь в ячейку старая исчезает.
+Для создания переменной используется ключевое слово <code>var</code>. Созданная
+таким образом переменная называется локальной<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> и существует
+только внутри блоков кода, т.е между конструкциями из обычных <code>()</code>
+или фигурных <code>{}</code> скобок. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #c678dd; font-weight: bold;">var</span> my_variable = 1;
+my_variable.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">1</span>
+)
+
+my_variable.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">&#1086;&#1096;&#1080;&#1073;&#1082;&#1072;. &#1047;&#1072; &#1089;&#1082;&#1086;&#1073;&#1082;&#1072;&#1084;&#1080; &#1087;&#1077;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1086;&#1081; my_variable &#1085;&#1077; &#1089;&#1091;&#1097;&#1077;&#1089;&#1090;&#1074;&#1091;&#1077;&#1090;.</span>
+</pre>
+</div>
+
+<p>
+В тех случаях, когда нам нужно будет объявить глобальную переменную<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>, т.е переменную,
+к которой можно обратиться в любой части кода, мы будем использовать имена, начинающиеся со знака
+тильда <code>~</code>. Такие переменные можно объявлять где угодно.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #61afef;">~my_global_variable</span> = 1;
+)
+
+<span style="color: #61afef;">~my_second_global_variable</span> = 2;
+
+<span style="color: #61afef;">~my_global_variable</span>.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">1</span>
+<span style="color: #61afef;">~my_global_variable2</span>.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">2</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0b948b0" class="outline-2">
+<h2 id="org0b948b0"><span class="section-number-2">2</span> Паттерны, потоки, события.</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Для того, чтобы начать работать с мелодиями и гармониями
+в SuperCollider необходимо ясное понимание того, что такое
+паттерны (Pattern), потоки (Stream) и события (Events).
+Начнём с потоков.
+</p>
+</div>
+
+<div id="outline-container-orgd95339c" class="outline-3">
+<h3 id="orgd95339c"><span class="section-number-3">2.1</span> Потоки (Streams)</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Для того, чтобы создать музыкальную композицию нам понадобится
+инструмент, который позволит воспроизводить звуковые события
+одно за другим. Представьте, что вы играете на фортепиано.
+Чтобы звучала мелодия вам нужно нажимать клавишу за клавишей.
+Это и есть своеобразный поток. В языке SuperCollider
+поток &#x2014; это объект, который содержит последовательность
+значений, которые можно получить с помощью сообщения <code>.next</code> .
+</p>
+
+<p>
+Cообщения &#x2014; одна из особенностей языка. Чтобы отправить
+сообщение нужно написать его через точку после целевого
+объекта. Объект, которому посылается сообщение называется
+получателем (receiver). Во многих других языках это называется
+вызов метода. Выше мы видели, как отправить сообщение .postln любой
+переменной. Это сообщение выведет на экран значение этой переменной.
+</p>
+
+<p>
+Кроме того поток может быть остановлен, поставлен на паузу и позже
+запущен с помощью сообщений <code>.stop</code> <code>.pause</code> и <code>.resume</code> соответственно.
+Поток довольно абстрактное понятие. Не переживайте, если что-то из
+прочитаного осталось непонятным. Мы не будем работать с ними напрямую, но
+понимание того, что это такое сильно облегчит нам работу с паттернами.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org88b1477" class="outline-3">
+<h3 id="org88b1477"><span class="section-number-3">2.2</span> События (Events)</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Событие &#x2014; это действие, которое должно быть вызвано в ответ
+на сообщение <code>.play</code> . Событие является парой ключ-значение.
+Работая с паттернами мы будем часто встречать их. Вот список
+некоторых событий, которые мы будем использовать:
+</p>
+
+<ul class="org-ul">
+<li><code>\note</code> &#x2014; нота</li>
+<li><code>\freq</code> &#x2014; частота (в Герцах)</li>
+<li><code>\octave</code> &#x2014; октава</li>
+<li><code>\amp</code> &#x2014; амплитуда (громкость)</li>
+<li><code>\dur</code> &#x2014; длительность</li>
+</ul>
+
+<p>
+Вот как выглядят события в паттерне.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
+  <span style="color: #da8548; font-weight: bold;">\dur</span>, 1/4,
+  <span style="color: #da8548; font-weight: bold;">\octave</span>, 4,
+  <span style="color: #da8548; font-weight: bold;">\note</span>, 0,
+  <span style="color: #da8548; font-weight: bold;">\amp</span>, 0.5
+);
+</pre>
+</div>
+
+<p>
+В приведенном примере ключ события это <code>\dur</code>, а значение &#x2014; <code>1/4</code>.
+</p>
+
+<p>
+Но что же такое <code>Pbind</code>? Сейчас мы заглянем чуток дальше.
+<code>Pbind</code> это и есть паттерн. Название каждого паттерна начинается
+с заглавной P. Паттернов довольно много и все они выполняют свою
+функцию. Паттерн <code>Pbind</code> комбирирует события в один поток.
+Отправив сообщение <code>.play</code> паттерну Pbind, мы получим поток, который
+воспроизведет ноту До (<code>\note, 0</code>) четвертой октавы (<code>\octave, 4</code>)
+с громкостью в половину обычного (<code>\amp, 0.5</code>) в течении
+1/4 секунды (<code>/dur, 1/4</code>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7994dbd" class="outline-3">
+<h3 id="org7994dbd"><span class="section-number-3">2.3</span> Паттерны</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Теперь, имея базовое представление о паттернах, можно попробовать воспроизвести простую мелодию.
+Для этого выполните следующий код:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">~stream</span> = <span style="color: #61afef;">Pbind</span>(
+  <span style="color: #da8548; font-weight: bold;">\dur</span>, 1/4,
+  <span style="color: #da8548; font-weight: bold;">\octave</span>, 4,
+  <span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>([0, 2, 4], <span style="color: #61afef; font-weight: bold;">inf</span>),
+  <span style="color: #da8548; font-weight: bold;">\amp</span>, 0.5
+).play;
+</pre>
+</div>
+
+<p>
+Теперь мелодия играет постоянно. Сначала остановим её, а потом подробно разберём эту часть.
+В примере выше мы сохранили в глобальной переменной <code>~stream</code> результат отправки сообщения <code>.play</code>
+паттерну Pbind. Таким образом мы сохранили поток. Мы уже знаем о том как остановить его.
+Нужно отправить потоку сообщение <code>.stop</code> .
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">~stream</span>.stop;
+</pre>
+</div>
+
+<p>
+Что же позволило паттерну играть мелодию? Наверняка вы обратили внимание на конструкцию <code>\note, Pseq([0, 2, 4], inf)</code> .
+Это обычное событие, только в качестве ключа у этого события не простое значение, а паттерн Pseq.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgacbf216" class="outline-2">
+<h2 id="orgacbf216"><span class="section-number-2">3</span> Pseq</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Pseq &#x2014; это паттерн, возвращающий несколько значений одно за
+другим заданное количество раз. Паттерн принимает в качестве
+аргументов массива<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> значений (в квадратных скобках [])
+и количество повторений. В примере выше в качестве количества
+повторений мы использовали ключевое слово <code>inf</code> &#x2014; это обозначение
+бесконечности в Supercollider. Стоит заметить, что если внутри
+паттерна есть несколько паттернов Pseq, то поток завершится
+тогда, когда завершится самый короткий из паттернов.
+Взгляните на пример:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
+<span style="color: #da8548; font-weight: bold;">\dur</span>, <span style="color: #61afef;">Pseq</span>([1/4, 1/2], <span style="color: #61afef; font-weight: bold;">inf</span>),
+<span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>([0, 2, 4], 2)
+);
+</pre>
+</div>
+
+<p>
+Этот паттерн завершится после двух воспроизведений, так как
+это количество повторов в самом коротком паттерне. В качестве
+значений Pseq может принимать что угодно, в том числе другие
+паттерны. Это очень удобно в том случае, если вы хотите запустить
+два паттерна один за другим. Но что делать, если вым нужно
+воспроизвести аккорд? Неужели придётся писать по паттерну для
+каждой ступени аккорда? К счастью нет. Дело в том, что если
+в качестве значения события будет не число, а массив, то
+интерпретатор SuperCollider автоматически создаст количество
+событий, равное длинне массива. Тут стоит сказать, что в
+программировании счёт начинается не с единицы, а с нуля, поэтому
+для того, чтобы воспроизвести аккорд до&#x2013;мажор, для которого
+нужны ноты до ми и соль нам понадобится массив из чисел
+0, 2 и 4, а не 1, 3 и 5.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
+<span style="color: #da8548; font-weight: bold;">\dur</span>, 1,
+<span style="color: #da8548; font-weight: bold;">\note</span>, [0, 2, 4]
+);
+</pre>
+</div>
+
+<p>
+Вот так выглядит паттерн, который воспроизведёт аккорд до&#x2013;мажор
+в течении одной секунды. Теперь, зная о паттерне Pseq и о
+том, как можно воспроизвести несколько событий одновременно, мы
+можем сыграть аккордовую последовательность. Для этого нужно
+передать первым аргументом паттерна Pseq массив, состоящий из
+массивов, например:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
+<span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>(
+    [
+      [0, 2, 4],
+      [1, 3, 5],
+      [2, 4, 6]
+    ],
+    2
+  ),
+<span style="color: #da8548; font-weight: bold;">\dur</span>, 1
+);
+</pre>
+</div>
+
+<p>
+Чтож, взглянув на эту конструкцию может показаться, что партитуры
+Ксенакиса<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> выглядят проще и понятнее. Конечно, это преувеличение,
+но всё же намного лучше иметь возможность работать с чем-то
+более приближенным к музыкальной теории, чтобы не утруждать
+свом мозг постоянными трансформациями нот в числа и обратно.
+Благодаря тому, что SuperCollider это свободное и открытое
+программное обеспечение<sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup> , каждый пользователь может внести
+свою лепту в развитие проекта, изменить код или написать
+дополнение. Поэтому для работы с нотами и аккордами мы будем
+использовать библиотеку ChordSymbol<sup><a id="fnr.7" class="footref" href="#fn.7">7</a></sup>, которая позволяет
+использовать буквенные наименования нот и аккордов.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8ed77cf" class="outline-2">
+<h2 id="org8ed77cf"><span class="section-number-2">4</span> Библиотека ChordSymbol, ноты и аккорды</h2>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">&#1057;&#1085;&#1086;&#1089;&#1082;&#1080;: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%9F%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)">https://ru.wikipedia.org/wiki/Переменная_(программирование)</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F">https://ru.wikipedia.org/wiki/Локальная_переменная</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%93%D0%BB%D0%BE%D0%B1%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F">https://ru.wikipedia.org/wiki/Глобальная_переменная</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%81%D1%81%D0%B8%D0%B2_(%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)">https://ru.wikipedia.org/wiki/Массив_(программирование)</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%9A%D1%81%D0%B5%D0%BD%D0%B0%D0%BA%D0%B8%D1%81,_%D0%AF%D0%BD%D0%B8%D1%81">https://ru.wikipedia.org/wiki/Ксенакис,_Янис</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6">6</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%BD%D0%BE%D0%B5_%D0%B8_%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%BE%D0%B5_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B5">https://ru.wikipedia.org/wiki/Свободное_и_открытое_программное_обеспечение</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7">7</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://github.com/triss/ChordSymbol">https://github.com/triss/ChordSymbol</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">&#1040;&#1074;&#1090;&#1086;&#1088;: Bjornmossa</p>
+<p class="date">Created: 2018-10-03 Ср 14:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
