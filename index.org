@@ -2,7 +2,7 @@
 #+AUTHOR: Bjornmossa
 #+LANGUAGE: ru
 #+HTML_HEAD_EXTRA: <meta charset="utf-8">
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../assets/style.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./assets/style.css" />
 
 * Пара слов о переменных.
 
