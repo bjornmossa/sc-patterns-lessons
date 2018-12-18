@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 <head>
-<!-- 2018-10-03 Ср 16:43 -->
+<!-- 2018-12-18 Вт 13:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Начало работы с паттернами</title>
@@ -236,22 +236,27 @@ for the JavaScript code in this tag.
 <h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org483502d">1. Пара слов о переменных.</a></li>
-<li><a href="#orgbcf9b88">2. Паттерны, потоки, события.</a>
+<li><a href="#org11cd14d">1. Пара слов о переменных.</a></li>
+<li><a href="#orgd9885b7">2. Паттерны, потоки, события.</a>
 <ul>
-<li><a href="#orgbab5eba">2.1. Потоки (Streams)</a></li>
-<li><a href="#orgdc2ed11">2.2. События (Events)</a></li>
-<li><a href="#org609496b">2.3. Паттерны</a></li>
+<li><a href="#org116d505">2.1. Потоки (Streams)</a></li>
+<li><a href="#org049f912">2.2. События (Events)</a></li>
+<li><a href="#org909cf1b">2.3. Паттерны</a></li>
 </ul>
 </li>
-<li><a href="#org867c731">3. Pseq</a></li>
-<li><a href="#org3d9546a">4. Библиотека ChordSymbol, ноты и аккорды</a></li>
+<li><a href="#orge95a24c">3. Pseq</a></li>
+<li><a href="#orgecdf500">4. Библиотека ChordSymbol, ноты и аккорды</a>
+<ul>
+<li><a href="#orgb2ff55f">4.1. Ноты</a></li>
+<li><a href="#orgd45f68a">4.2. Аккорды</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org483502d" class="outline-2">
-<h2 id="org483502d"><span class="section-number-2">1</span> Пара слов о переменных.</h2>
+<div id="outline-container-org11cd14d" class="outline-2">
+<h2 id="org11cd14d"><span class="section-number-2">1</span> Пара слов о переменных.</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Язык SuperCollider взял многое от функциональных языков, в том числе
@@ -272,11 +277,11 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 <pre class="src src-sclang">(
-<span style="color: #c678dd; font-weight: bold;">var</span> my_variable = 1;
-my_variable.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">1</span>
+<span style="color: #d787d7; font-weight: bold;">var</span> my_variable = 1;
+my_variable.postln; <span style="color: #707070; font-style: italic;">// </span><span style="color: #707070; font-style: italic;">1</span>
 )
 
-my_variable.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">&#1086;&#1096;&#1080;&#1073;&#1082;&#1072;. &#1047;&#1072; &#1089;&#1082;&#1086;&#1073;&#1082;&#1072;&#1084;&#1080; &#1087;&#1077;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1086;&#1081; my_variable &#1085;&#1077; &#1089;&#1091;&#1097;&#1077;&#1089;&#1090;&#1074;&#1091;&#1077;&#1090;.</span>
+my_variable.postln; <span style="color: #707070; font-style: italic;">// </span><span style="color: #707070; font-style: italic;">&#1086;&#1096;&#1080;&#1073;&#1082;&#1072;. &#1047;&#1072; &#1089;&#1082;&#1086;&#1073;&#1082;&#1072;&#1084;&#1080; &#1087;&#1077;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1086;&#1081; my_variable &#1085;&#1077; &#1089;&#1091;&#1097;&#1077;&#1089;&#1090;&#1074;&#1091;&#1077;&#1090;.</span>
 </pre>
 </div>
 
@@ -288,20 +293,20 @@ my_variable.postln; <span style="color: #687080; font-style: italic;">// </span>
 
 <div class="org-src-container">
 <pre class="src src-sclang">(
-<span style="color: #61afef;">~my_global_variable</span> = 1;
+<span style="color: #5fafff;">~my_global_variable</span> = 1;
 )
 
-<span style="color: #61afef;">~my_second_global_variable</span> = 2;
+<span style="color: #5fafff;">~my_second_global_variable</span> = 2;
 
-<span style="color: #61afef;">~my_global_variable</span>.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">1</span>
-<span style="color: #61afef;">~my_global_variable2</span>.postln; <span style="color: #687080; font-style: italic;">// </span><span style="color: #687080; font-style: italic;">2</span>
+<span style="color: #5fafff;">~my_global_variable</span>.postln; <span style="color: #707070; font-style: italic;">// </span><span style="color: #707070; font-style: italic;">1</span>
+<span style="color: #5fafff;">~my_global_variable2</span>.postln; <span style="color: #707070; font-style: italic;">// </span><span style="color: #707070; font-style: italic;">2</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbcf9b88" class="outline-2">
-<h2 id="orgbcf9b88"><span class="section-number-2">2</span> Паттерны, потоки, события.</h2>
+<div id="outline-container-orgd9885b7" class="outline-2">
+<h2 id="orgd9885b7"><span class="section-number-2">2</span> Паттерны, потоки, события.</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Для того, чтобы начать работать с мелодиями и гармониями
@@ -311,8 +316,8 @@ my_variable.postln; <span style="color: #687080; font-style: italic;">// </span>
 </p>
 </div>
 
-<div id="outline-container-orgbab5eba" class="outline-3">
-<h3 id="orgbab5eba"><span class="section-number-3">2.1</span> Потоки (Streams)</h3>
+<div id="outline-container-org116d505" class="outline-3">
+<h3 id="org116d505"><span class="section-number-3">2.1</span> Потоки (Streams)</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Для того, чтобы создать музыкальную композицию нам понадобится
@@ -343,8 +348,8 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </div>
 </div>
 
-<div id="outline-container-orgdc2ed11" class="outline-3">
-<h3 id="orgdc2ed11"><span class="section-number-3">2.2</span> События (Events)</h3>
+<div id="outline-container-org049f912" class="outline-3">
+<h3 id="org049f912"><span class="section-number-3">2.2</span> События (Events)</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Событие &#x2014; это действие, которое должно быть вызвано в ответ
@@ -366,11 +371,11 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
-  <span style="color: #da8548; font-weight: bold;">\dur</span>, 1/4,
-  <span style="color: #da8548; font-weight: bold;">\octave</span>, 4,
-  <span style="color: #da8548; font-weight: bold;">\note</span>, 0,
-  <span style="color: #da8548; font-weight: bold;">\amp</span>, 0.5
+<pre class="src src-sclang"><span style="color: #5fafff;">Pbind</span>(
+  <span style="color: #d7875f; font-weight: bold;">\dur</span>, 1/4,
+  <span style="color: #d7875f; font-weight: bold;">\octave</span>, 4,
+  <span style="color: #d7875f; font-weight: bold;">\note</span>, 0,
+  <span style="color: #d7875f; font-weight: bold;">\amp</span>, 0.5
 );
 </pre>
 </div>
@@ -392,8 +397,8 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </div>
 </div>
 
-<div id="outline-container-org609496b" class="outline-3">
-<h3 id="org609496b"><span class="section-number-3">2.3</span> Паттерны</h3>
+<div id="outline-container-org909cf1b" class="outline-3">
+<h3 id="org909cf1b"><span class="section-number-3">2.3</span> Паттерны</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Теперь, имея базовое представление о паттернах, можно попробовать воспроизвести простую мелодию.
@@ -401,11 +406,11 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">~stream</span> = <span style="color: #61afef;">Pbind</span>(
-  <span style="color: #da8548; font-weight: bold;">\dur</span>, 1/4,
-  <span style="color: #da8548; font-weight: bold;">\octave</span>, 4,
-  <span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>([0, 2, 4], <span style="color: #61afef; font-weight: bold;">inf</span>),
-  <span style="color: #da8548; font-weight: bold;">\amp</span>, 0.5
+<pre class="src src-sclang"><span style="color: #5fafff;">~stream</span> = <span style="color: #5fafff;">Pbind</span>(
+  <span style="color: #d7875f; font-weight: bold;">\dur</span>, 1/4,
+  <span style="color: #d7875f; font-weight: bold;">\octave</span>, 4,
+  <span style="color: #d7875f; font-weight: bold;">\note</span>, <span style="color: #5fafff;">Pseq</span>([0, 2, 4], <span style="color: #5fafff; font-weight: bold;">inf</span>),
+  <span style="color: #d7875f; font-weight: bold;">\amp</span>, 0.5
 ).play;
 </pre>
 </div>
@@ -418,7 +423,7 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">~stream</span>.stop;
+<pre class="src src-sclang"><span style="color: #5fafff;">~stream</span>.stop;
 </pre>
 </div>
 
@@ -430,9 +435,8 @@ Cообщения &#x2014; одна из особенностей языка. Ч
 </div>
 </div>
 
-
-<div id="outline-container-org867c731" class="outline-2">
-<h2 id="org867c731"><span class="section-number-2">3</span> Pseq</h2>
+<div id="outline-container-orge95a24c" class="outline-2">
+<h2 id="orge95a24c"><span class="section-number-2">3</span> Pseq</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Pseq &#x2014; это паттерн, возвращающий несколько значений одно за
@@ -447,9 +451,9 @@ Pseq &#x2014; это паттерн, возвращающий несколько
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
-<span style="color: #da8548; font-weight: bold;">\dur</span>, <span style="color: #61afef;">Pseq</span>([1/4, 1/2], <span style="color: #61afef; font-weight: bold;">inf</span>),
-<span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>([0, 2, 4], 2)
+<pre class="src src-sclang"><span style="color: #5fafff;">Pbind</span>(
+<span style="color: #d7875f; font-weight: bold;">\dur</span>, <span style="color: #5fafff;">Pseq</span>([1/4, 1/2], <span style="color: #5fafff; font-weight: bold;">inf</span>),
+<span style="color: #d7875f; font-weight: bold;">\note</span>, <span style="color: #5fafff;">Pseq</span>([0, 2, 4], 2)
 );
 </pre>
 </div>
@@ -472,9 +476,9 @@ Pseq &#x2014; это паттерн, возвращающий несколько
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
-<span style="color: #da8548; font-weight: bold;">\dur</span>, 1,
-<span style="color: #da8548; font-weight: bold;">\note</span>, [0, 2, 4]
+<pre class="src src-sclang"><span style="color: #5fafff;">Pbind</span>(
+<span style="color: #d7875f; font-weight: bold;">\dur</span>, 1,
+<span style="color: #d7875f; font-weight: bold;">\note</span>, [0, 2, 4]
 );
 </pre>
 </div>
@@ -489,8 +493,8 @@ Pseq &#x2014; это паттерн, возвращающий несколько
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sclang"><span style="color: #61afef;">Pbind</span>(
-<span style="color: #da8548; font-weight: bold;">\note</span>, <span style="color: #61afef;">Pseq</span>(
+<pre class="src src-sclang"><span style="color: #5fafff;">Pbind</span>(
+<span style="color: #d7875f; font-weight: bold;">\note</span>, <span style="color: #5fafff;">Pseq</span>(
     [
       [0, 2, 4],
       [1, 3, 5],
@@ -498,7 +502,7 @@ Pseq &#x2014; это паттерн, возвращающий несколько
     ],
     2
   ),
-<span style="color: #da8548; font-weight: bold;">\dur</span>, 1
+<span style="color: #d7875f; font-weight: bold;">\dur</span>, 1
 );
 </pre>
 </div>
@@ -519,8 +523,33 @@ Pseq &#x2014; это паттерн, возвращающий несколько
 </div>
 </div>
 
-<div id="outline-container-org3d9546a" class="outline-2">
-<h2 id="org3d9546a"><span class="section-number-2">4</span> Библиотека ChordSymbol, ноты и аккорды</h2>
+<div id="outline-container-orgecdf500" class="outline-2">
+<h2 id="orgecdf500"><span class="section-number-2">4</span> Библиотека ChordSymbol, ноты и аккорды</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Библиотека ChordSymbol преобразует символы или массивы символов в числа с которыми и
+работают паттерны. Символ &#x2014; это особая переменная, наименование которой начинается
+со знака <code>\</code>, например нота до будет записана как <code>\C</code>. 
+</p>
+</div>
+
+<div id="outline-container-orgb2ff55f" class="outline-3">
+<h3 id="orgb2ff55f"><span class="section-number-3">4.1</span> Ноты</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Библиотека ChordSymbol позволяет работать с символами, как с нотами. Сами ноты
+обозначаются заглавными латинскими буквами. После названия ноты может идти знак
+альтерации &#x2014; <code>s</code> для диезов и <code>b</code> для бемолей. Библиотека не поддерживает знак
+бекар. После знаков альтерации можно указать октаву. Чтобы получить целое число,
+обозначающее ноту нужно послать символу сообщение <code>.asNote</code>. Получается, чтобы
+получить число, соответствующее ноте Ля диез третьей октавы нужно выполнить <code>\As3.asNote</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd45f68a" class="outline-3">
+<h3 id="orgd45f68a"><span class="section-number-3">4.2</span> Аккорды</h3>
+</div>
 </div>
 <div id="footnotes">
 <h2 class="footnotes">&#1057;&#1085;&#1086;&#1089;&#1082;&#1080;: </h2>
@@ -559,7 +588,7 @@ Pseq &#x2014; это паттерн, возвращающий несколько
 </div></div>
 <div id="postamble" class="status">
 <p class="author">&#1040;&#1074;&#1090;&#1086;&#1088;: Bjornmossa</p>
-<p class="date">Created: 2018-10-03 Ср 16:43</p>
+<p class="date">Created: 2018-12-18 Вт 13:03</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
